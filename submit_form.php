@@ -1,0 +1,26 @@
+<?php
+ if($_SERVER["REQUEST_METHOD"]=="POST"){
+ //Getformdata
+ $name=htmlspecialchars($_POST['name']);
+ $email=htmlspecialchars($_POST['email']);
+ $phone=htmlspecialchars($_POST['phone']);
+ $password=htmlspecialchars($_POST['password']);
+ //Server-sidevalidation
+ if(empty($name)||empty($email)||empty($phone)||empty($password)){
+ echo'Allfieldsarerequired.';
+ }else{
+ //Here,youcanaddadditionalchecks(emailformat,passwordstrength,etc.)
+ //Forexample,checkifemailisvalid
+ if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
+ echo'Pleaseenteravalidemailaddress.';
+ exit();
+ }
+ //Youcanhashthepasswordhereifyouwanttostoreitsecurelyinadatabase
+ //$hashed_password=password_hash($password,PASSWORD_DEFAULT);
+ //Forsimplicity,we'lljustrespondwithasuccessmessage
+ echo'Registration Successful !Welcome, ' .$name. '.';
+ }
+ }else{
+ echo'Invalidrequest.';
+ }
+ ?>
